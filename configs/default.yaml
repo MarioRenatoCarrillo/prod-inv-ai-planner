@@ -1,0 +1,23 @@
+model:
+  mu: 100.0
+  sigma: 20.0
+  truncate_demand_at_zero: true
+
+  C1: 2.0
+  C2: 0.02
+
+  K1: 0.5
+  K2: 0.01
+
+  B1: 4.0
+  B2: 0.02
+
+sim:
+  T: 52
+  n_paths: 2000
+  seed: 7
+  x0: 0.0
+
+policy:
+  type: "base_stock"
+  S: 110.0

@@ -226,3 +226,26 @@ def plot_avg_inventory_vs_S(
     plt.close()
 
     return out_path
+
+def plot_synthetic_demand(
+    df: pd.DataFrame,
+    output_dir: str | Path = "reports/figures",
+    filename: str = "synthetic_weekly_demand.png",
+) -> Path:
+    """
+    Plot synthetic weekly demand over time.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(df["week"], df["demand"])
+    plt.xlabel("Week")
+    plt.ylabel("Demand")
+    plt.title("Synthetic Weekly Soybean Meal Demand")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path

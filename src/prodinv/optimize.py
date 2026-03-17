@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from .config import ModelParams, SimParams
 from .simulate import run_simulation
@@ -33,7 +33,11 @@ def search_best_S(
     rows: list[dict[str, float]] = []
 
     for S in S_grid:
-        avg_total_cost, breakdown, _ = run_simulation(mp, sp, S=float(S))
+        avg_total_cost, breakdown, trajectory, path_summary = run_simulation(
+            mp,
+            sp,
+            S=float(S),
+        )
 
         rows.append(
             {

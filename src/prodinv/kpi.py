@@ -1,62 +1,30 @@
 from __future__ import annotations
 
-import numpy as np
 import pandas as pd
 
 
-def compute_kpis(trajectory: pd.DataFrame) -> dict[str, float]:
+def compute_kpis(path_summary: pd.DataFrame) -> dict[str, float]:
     """
-    Compute operational KPIs from the average simulation trajectory.
+    Compute operational KPIs from path-level Monte Carlo results.
 
     Parameters
     ----------
-    trajectory : pd.DataFrame
-        DataFrame with columns:
-        - avg_x_start
-        - avg_q
-        - avg_demand
+    path_summary : pd.DataFrame
+        Path-level summary metrics from simulation.
 
     Returns
     -------
     dict[str, float]
         Dictionary of KPI values.
     """
-    avg_inventory = trajectory["avg_x_start"].mean()
-
-    ## The above equation This averages the starting inventory across all periods.
-    ## Interpretation: Over the simulation horizon, what inventory level does the plant tend to carry?
-
-    avg_production = trajectory["avg_q"].mean()
-
-    #The above equation: What is the typical weekly crush output?
-
-    production_volatility = trajectory["avg_q"].std()
-
-    ### Interpretation:
-    # How much does the production plan swing week to week?
-    # Low volatility is usually good because it means smoother operations.
-
-    avg_demand = trajectory["avg_demand"].mean()
-
-    stockout_probability = float(np.mean(trajectory["avg_x_start"] < 0))
-
-    ### The above equation: This measures the fraction of periods where average starting inventory is negative.
-    # Interpretation: In what share of periods is the system in backlog?
-
-    immediately_available = np.maximum(trajectory["avg_x_start"], 0.0) + trajectory["avg_q"]
-    demand_served_now = np.minimum(immediately_available, trajectory["avg_demand"])
-    fill_rate = float(demand_served_now.sum() / trajectory["avg_demand"].sum())
-    ### the 3 above equations have the follwoing meanings:
-        # start with nonnegative available inventory
-        # add this week’s production
-        # compare against demand
-        # whatever can be served immediately counts toward fill rate
-    ###This is a good first business-facing approximation.
     return {
-        "avg_inventory": float(avg_inventory),
-        "avg_production": float(avg_production),
-        "production_volatility": float(production_volatility),
-        "avg_demand": float(avg_demand),
-        "stockout_probability": stockout_probability,
-        "fill_rate": fill_rate,
+        "avg_inventory": float(path_summary["avg_inventory"].mean()),
+        "avg_production": float(path_summary["avg_production"].mean()),
+        "production_volatility": float(path_summary["avg_production"].std()),
+        "avg_demand": float(path_summary["avg_demand"].mean()),
+        "stockout_probability": float((path_summary["stockout_rate"] > 0).mean()),
+        "avg_stockout_rate": float(path_summary["stockout_rate"].mean()),
+        "fill_rate": float(path_summary["fill_rate"].mean()),
+        "cost_mean": float(path_summary["total_cost"].mean()),
+        "cost_std": float(path_summary["total_cost"].std()),
     }

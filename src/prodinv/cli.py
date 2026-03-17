@@ -17,9 +17,12 @@ from .visualize import (
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    Build the command-line interface parser.
+    """
     parser = argparse.ArgumentParser(
         prog="prodinv",
-        description="AI + Operations Research for Agricultural Supply Chains"
+        description="AI + Operations Research for Agricultural Supply Chains",
     )
 
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -27,14 +30,14 @@ def build_parser() -> argparse.ArgumentParser:
     # simulate
     sim_parser = subparsers.add_parser(
         "simulate",
-        help="Run Monte Carlo simulation for one base-stock level S"
+        help="Run Monte Carlo simulation for one base-stock level S",
     )
     sim_parser.add_argument("--config", required=True, type=str)
 
     # optimize
     opt_parser = subparsers.add_parser(
         "optimize",
-        help="Search for the best base-stock level S over a grid"
+        help="Search for the best base-stock level S over a grid",
     )
     opt_parser.add_argument("--config", required=True, type=str)
     opt_parser.add_argument("--s-min", type=float, default=80.0)
@@ -44,7 +47,7 @@ def build_parser() -> argparse.ArgumentParser:
     # plot
     plot_parser = subparsers.add_parser(
         "plot",
-        help="Generate optimization and trajectory plots"
+        help="Generate optimization and trajectory plots",
     )
     plot_parser.add_argument("--config", required=True, type=str)
     plot_parser.add_argument("--s-min", type=float, default=80.0)
@@ -56,15 +59,18 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def run_simulate_command(config_path: str) -> None:
+    """
+    Run a single simulation at the configured base-stock level.
+    """
     cfg = load_config(config_path)
 
-    avg_total_cost, breakdown, trajectory = run_simulation(
+    avg_total_cost, breakdown, trajectory, path_summary = run_simulation(
         mp=cfg.model,
         sp=cfg.sim,
         S=cfg.policy.S,
     )
 
-    kpis = compute_kpis(trajectory)
+    kpis = compute_kpis(path_summary)
 
     print("\n=== Simulation Results ===")
     print(f"Policy type: {cfg.policy.type}")
@@ -82,6 +88,9 @@ def run_simulate_command(config_path: str) -> None:
     print("\nTrajectory preview:")
     print(trajectory.head(10).to_string(index=False))
 
+    print("\nPath summary preview:")
+    print(path_summary.head(10).to_string(index=False))
+
 
 def run_optimize_command(
     config_path: str,
@@ -89,6 +98,9 @@ def run_optimize_command(
     s_max: float,
     s_step: float,
 ) -> None:
+    """
+    Search across a grid of S values and print the sorted results.
+    """
     cfg = load_config(config_path)
 
     s_grid = np.arange(s_min, s_max + s_step, s_step)
@@ -119,6 +131,9 @@ def run_plot_command(
     s_step: float,
     output_dir: str,
 ) -> None:
+    """
+    Generate plots from optimization results and the best-S trajectory.
+    """
     cfg = load_config(config_path)
 
     s_grid = np.arange(s_min, s_max + s_step, s_step)
@@ -131,7 +146,7 @@ def run_plot_command(
 
     best_s = float(results.iloc[0]["S"])
 
-    avg_total_cost, breakdown, trajectory = run_simulation(
+    avg_total_cost, breakdown, trajectory, path_summary = run_simulation(
         mp=cfg.model,
         sp=cfg.sim,
         S=best_s,
@@ -150,6 +165,9 @@ def run_plot_command(
 
 
 def main() -> None:
+    """
+    Entry point for the CLI.
+    """
     parser = build_parser()
     args = parser.parse_args()
 

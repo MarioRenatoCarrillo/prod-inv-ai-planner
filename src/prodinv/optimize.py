@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 
 from .config import ModelParams, SimParams
+from .kpi import compute_kpis
 from .simulate import run_simulation
 
 
@@ -14,21 +15,7 @@ def search_best_S(
 ) -> pd.DataFrame:
     """
     Evaluate multiple candidate base-stock levels and return
-    a sorted DataFrame of results.
-
-    Parameters
-    ----------
-    mp : ModelParams
-        Economic and demand parameters.
-    sp : SimParams
-        Simulation settings.
-    S_grid : np.ndarray
-        Candidate values of S to evaluate.
-
-    Returns
-    -------
-    pd.DataFrame
-        Results sorted by average total cost ascending.
+    a sorted DataFrame of results, including both cost and KPI metrics.
     """
     rows: list[dict[str, float]] = []
 
@@ -39,6 +26,8 @@ def search_best_S(
             S=float(S),
         )
 
+        kpis = compute_kpis(path_summary)
+
         rows.append(
             {
                 "S": float(S),
@@ -46,6 +35,15 @@ def search_best_S(
                 "production_cost": breakdown["production_cost"],
                 "holding_cost": breakdown["holding_cost"],
                 "backorder_cost": breakdown["backorder_cost"],
+                "avg_inventory": kpis["avg_inventory"],
+                "avg_production": kpis["avg_production"],
+                "production_volatility": kpis["production_volatility"],
+                "avg_demand": kpis["avg_demand"],
+                "stockout_probability": kpis["stockout_probability"],
+                "avg_stockout_rate": kpis["avg_stockout_rate"],
+                "fill_rate": kpis["fill_rate"],
+                "cost_mean": kpis["cost_mean"],
+                "cost_std": kpis["cost_std"],
             }
         )
 

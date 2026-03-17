@@ -10,7 +10,10 @@ from .kpi import compute_kpis
 from .optimize import search_best_S
 from .simulate import run_simulation
 from .visualize import (
+    plot_avg_inventory_vs_S,
     plot_cost_breakdown_vs_S,
+    plot_fill_rate_vs_S,
+    plot_stockout_probability_vs_S,
     plot_total_cost_vs_S,
     plot_trajectory,
 )
@@ -155,6 +158,9 @@ def run_plot_command(
     p1 = plot_total_cost_vs_S(results, output_dir=output_dir)
     p2 = plot_cost_breakdown_vs_S(results, output_dir=output_dir)
     p3 = plot_trajectory(trajectory, output_dir=output_dir)
+    p4 = plot_stockout_probability_vs_S(results, output_dir=output_dir)
+    p5 = plot_fill_rate_vs_S(results, output_dir=output_dir)
+    p6 = plot_avg_inventory_vs_S(results, output_dir=output_dir)
 
     print("\n=== Plot Generation Complete ===")
     print(f"Best S used for trajectory: {best_s:.2f}")
@@ -162,6 +168,9 @@ def run_plot_command(
     print(f"Saved: {Path(p1)}")
     print(f"Saved: {Path(p2)}")
     print(f"Saved: {Path(p3)}")
+    print(f"Saved: {Path(p4)}")
+    print(f"Saved: {Path(p5)}")
+    print(f"Saved: {Path(p6)}")
 
 
 def main() -> None:

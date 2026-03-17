@@ -148,3 +148,81 @@ def plot_trajectory(
     plt.close()
 
     return out_path
+### the bellow plot Shows:
+# As we increase buffer inventory, how often do simulated yearly 
+# scenarios still experience at least one stockout?
+
+def plot_stockout_probability_vs_S(
+    results: pd.DataFrame,
+    output_dir: str | Path = "reports/figures",
+    filename: str = "stockout_probability_vs_S.png",
+) -> Path:
+    """
+    Plot stockout probability vs base-stock level S.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(results["S"], results["stockout_probability"], marker="o")
+    plt.xlabel("Base-stock level S")
+    plt.ylabel("Stockout probability")
+    plt.title("Stockout Probability vs Inventory Buffer")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path
+
+### The bellow plot shows What fraction of total demand is served immediately as S increases? 
+
+def plot_fill_rate_vs_S(
+    results: pd.DataFrame,
+    output_dir: str | Path = "reports/figures",
+    filename: str = "fill_rate_vs_S.png",
+) -> Path:
+    """
+    Plot fill rate vs base-stock level S.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(results["S"], results["fill_rate"], marker="o")
+    plt.xlabel("Base-stock level S")
+    plt.ylabel("Fill rate")
+    plt.title("Fill Rate vs Inventory Buffer")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path
+
+
+
+### The bellow plot shows: How much inventory are we carrying to achieve that service improvement?
+
+def plot_avg_inventory_vs_S(
+    results: pd.DataFrame,
+    output_dir: str | Path = "reports/figures",
+    filename: str = "avg_inventory_vs_S.png",
+) -> Path:
+    """
+    Plot average inventory vs base-stock level S.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(results["S"], results["avg_inventory"], marker="o")
+    plt.xlabel("Base-stock level S")
+    plt.ylabel("Average inventory")
+    plt.title("Average Inventory vs Inventory Buffer")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path

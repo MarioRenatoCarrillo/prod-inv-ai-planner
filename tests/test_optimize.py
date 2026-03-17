@@ -36,3 +36,8 @@ def test_search_best_S_returns_sorted_results():
     assert "backorder_cost" in results.columns
 
     assert results["avg_total_cost"].is_monotonic_increasing
+    
+    assert "stockout_probability" in results.columns
+    assert "avg_stockout_rate" in results.columns
+    assert "fill_rate" in results.columns
+    assert "avg_inventory" in results.columns

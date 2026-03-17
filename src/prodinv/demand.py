@@ -33,6 +33,11 @@ def sample_demand(
     """
     demand = mp.mu + rng.normal(loc=0.0, scale=mp.sigma, size=size)
 
+    ###Note: the following equation generates random shocks from a 
+    # normal distribution 
+    # rng.normal(loc=0.0, scale=mp.sigma, size=size)
+    #### with 1) mean of shocks = 0, 2) standard deviation = sigma 3) generate size values
+    ## and the demand is centered around mu
     if mp.truncate_demand_at_zero:
         demand = np.maximum(demand, 0.0)
 

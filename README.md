@@ -117,20 +117,48 @@ Real value comes from combining:
 - Decision calibration
 
 ---
+---
+
+## 💼 Professional Summary (Resume-Ready)
+
+• Built an end-to-end stochastic production and inventory optimization system under demand uncertainty using Python, combining Operations Research and machine learning  
+
+• Developed Monte Carlo simulation framework to evaluate cost vs service tradeoffs across inventory policies, incorporating nonlinear production, holding, and backorder cost functions  
+
+• Designed and optimized base-stock inventory policy, identifying optimal buffer level (S* ≈ 120) that minimizes total cost while maintaining high service levels  
+
+• Implemented demand forecasting pipeline with feature engineering (lag features, seasonality encoding) and linear regression model, achieving MAE ≈ 6.4 and RMSE ≈ 8.2  
+
+• Integrated ML forecasts into dynamic inventory policy (S_t = μ̂ + zσ̂), enabling adaptive decision-making under uncertainty  
+
+• Conducted policy calibration and sensitivity analysis, demonstrating that naïve ML integration increased costs, while calibrated dynamic policy (z = 2.20) outperformed static policy (328.82 vs 329.00)  
+
+• Built modular, production-ready Python architecture with CLI interface, reusable components, and unit tests (pytest)  
+
+• Generated executive-level insights on cost drivers, service risk, and inventory dynamics through visualization and KPI reporting  
+
 
 # 📊 Key Visualizations
 
 ### Cost vs Inventory Policy
 ![Total Cost](reports/figures/total_cost_vs_S.png)
 
+### Cost Breakdown by Policy
+![Cost Breakdown](reports/figures/dynamic_vs_fixed_cost_comparison.png)
+
 ### Service vs Risk Tradeoff
 ![Fill Rate](reports/figures/fill_rate_vs_S.png)
+
+### Stockout Risk vs Inventory
+![Stockout Risk](reports/figures/stockout_probability_vs_S.png)
 
 ### Dynamic vs Fixed Inventory
 ![Inventory Comparison](reports/figures/dynamic_vs_fixed_inventory.png)
 
 ### Dynamic Inventory Target
 ![Dynamic S](reports/figures/dynamic_S_over_time.png)
+
+
 
 ---
 
@@ -162,3 +190,24 @@ PYTHONPATH=src python -m prodinv.cli optimize --config ./configs/default.yaml
 PYTHONPATH=src python -m prodinv.cli plot --config ./configs/default.yaml
 
 PYTHONPATH=src pytest -q
+
+## API
+
+Run the API locally:
+
+```bash
+PYTHONPATH=src uvicorn prodinv.api.main:app --reload
+
+Interactive docs available at:
+
+http://127.0.0.1:8000/docs
+
+Available endpoints:
+
+GET /health
+
+POST /simulate
+
+POST /optimize
+
+POST /dynamic-policy

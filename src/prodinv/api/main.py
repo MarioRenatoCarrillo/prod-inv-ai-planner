@@ -177,5 +177,11 @@ def dynamic_policy_endpoint(payload: DynamicPolicyRequest) -> dict:
 
 @app.post("/explain")
 def explain_endpoint(payload: ExplainRequest) -> dict:
-    explanation = explain_inventory_results(payload.payload)
-    return {"explanation": explanation}
+    try:
+        explanation = explain_inventory_results(payload.payload)
+        return {"explanation": explanation}
+    except Exception as e:
+        return {
+            "error": str(e),
+            "error_type": type(e).__name__,
+        }

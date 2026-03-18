@@ -249,3 +249,89 @@ def plot_synthetic_demand(
     plt.close()
 
     return out_path
+
+
+def plot_dynamic_S_over_time(
+    dyn_trajectory: pd.DataFrame,
+    output_dir: str | Path = "reports/figures",
+    filename: str = "dynamic_S_over_time.png",
+) -> Path:
+    """
+    Plot dynamic base-stock target over time.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    plt.figure(figsize=(9, 5))
+    plt.plot(dyn_trajectory["t"], dyn_trajectory["avg_S"], marker="o")
+    plt.xlabel("Time Period")
+    plt.ylabel("Dynamic Base-stock Level")
+    plt.title("Dynamic Inventory Target Over Time")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path
+
+
+def plot_dynamic_vs_fixed_inventory(
+    dyn_trajectory: pd.DataFrame,
+    fix_trajectory: pd.DataFrame,
+    output_dir: str | Path = "reports/figures",
+    filename: str = "dynamic_vs_fixed_inventory.png",
+) -> Path:
+    """
+    Compare dynamic vs fixed inventory trajectories.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(dyn_trajectory["t"], dyn_trajectory["avg_x_start"], marker="o", label="Dynamic inventory")
+    plt.plot(fix_trajectory["t"], fix_trajectory["avg_x_start"], marker="o", label="Fixed inventory")
+    plt.xlabel("Time Period")
+    plt.ylabel("Average Inventory")
+    plt.title("Dynamic vs Fixed Inventory Trajectory")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path
+
+
+def plot_dynamic_vs_fixed_cost_comparison(
+    dyn_breakdown: dict[str, float],
+    fix_breakdown: dict[str, float],
+    output_dir: str | Path = "reports/figures",
+    filename: str = "dynamic_vs_fixed_cost_comparison.png",
+) -> Path:
+    """
+    Compare average per-period cost components for dynamic vs fixed policies.
+    """
+    out_dir = ensure_output_dir(output_dir)
+    out_path = out_dir / filename
+
+    cost_names = ["production_cost", "holding_cost", "backorder_cost"]
+    dyn_values = [dyn_breakdown[k] for k in cost_names]
+    fix_values = [fix_breakdown[k] for k in cost_names]
+
+    x = range(len(cost_names))
+    width = 0.35
+
+    plt.figure(figsize=(9, 5))
+    plt.bar([i - width / 2 for i in x], dyn_values, width=width, label="Dynamic")
+    plt.bar([i + width / 2 for i in x], fix_values, width=width, label="Fixed")
+
+    plt.xticks(list(x), ["Production", "Holding", "Backorder"])
+    plt.ylabel("Average Cost per Period")
+    plt.title("Dynamic vs Fixed Policy Cost Comparison")
+    plt.legend()
+    plt.grid(True, axis="y", alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150)
+    plt.close()
+
+    return out_path

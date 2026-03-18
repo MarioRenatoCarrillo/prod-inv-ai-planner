@@ -228,3 +228,13 @@ risk notes
 
 Run the API locally and test the /explain endpoint at:
 http://127.0.0.1:8000/docs
+
+---
+## OpenAI Explanation Layer
+
+The API includes an `/explain` endpoint that converts optimization outputs into plain-language executive summaries for operations and commercial leaders.
+
+Example use cases:
+- explain why a fixed or dynamic policy is preferred
+- summarize cost vs service tradeoffs
+- highlight forecast bias and calibration implications

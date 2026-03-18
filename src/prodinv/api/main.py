@@ -5,6 +5,7 @@ from fastapi import FastAPI
 
 from prodinv.api.schemas import (
     DynamicPolicyRequest,
+    ExplainRequest,
     OptimizeRequest,
     SimulateRequest,
 )
@@ -14,6 +15,7 @@ from prodinv.dynamic_policy import compute_dynamic_S
 from prodinv.dynamic_simulate import run_dynamic_simulation
 from prodinv.features import prepare_supervised_dataset
 from prodinv.kpi import compute_kpis
+from prodinv.llm.explain import explain_inventory_results
 from prodinv.model import (
     evaluate_forecast,
     fit_linear_regression,
@@ -102,7 +104,10 @@ def dynamic_policy_endpoint(payload: DynamicPolicyRequest) -> dict:
     mp = to_model_params(payload.model)
 
     # Generate synthetic history and build forecast
-    df = generate_synthetic_weekly_demand(n_weeks=payload.n_weeks, seed=payload.sim.seed)
+    df = generate_synthetic_weekly_demand(
+        n_weeks=payload.n_weeks,
+        seed=payload.sim.seed,
+    )
     df_ml = prepare_supervised_dataset(df)
 
     feature_cols = [
@@ -125,7 +130,11 @@ def dynamic_policy_endpoint(payload: DynamicPolicyRequest) -> dict:
     y_pred = predict_linear_regression(X_test, beta)
     metrics = evaluate_forecast(y_test, y_pred)
 
-    S_dynamic = compute_dynamic_S(y_pred, rmse=metrics["RMSE"], z=payload.z)
+    S_dynamic = compute_dynamic_S(
+        y_pred,
+        rmse=metrics["RMSE"],
+        z=payload.z,
+    )
 
     sp_dynamic = SimParams(
         T=len(S_dynamic),
@@ -164,3 +173,9 @@ def dynamic_policy_endpoint(payload: DynamicPolicyRequest) -> dict:
             "trajectory_preview": fix_trajectory.head(10).to_dict(orient="records"),
         },
     }
+
+
+@app.post("/explain")
+def explain_endpoint(payload: ExplainRequest) -> dict:
+    explanation = explain_inventory_results(payload.payload)
+    return {"explanation": explanation}

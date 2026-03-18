@@ -41,3 +41,6 @@ class DynamicPolicyRequest(BaseModel):
     sim: SimParamsRequest
     z: float = 2.2
     n_weeks: int = 156
+
+class ExplainRequest(BaseModel):
+    payload: dict

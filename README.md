@@ -191,23 +191,36 @@ PYTHONPATH=src python -m prodinv.cli plot --config ./configs/default.yaml
 
 PYTHONPATH=src pytest -q
 
-## API
+---
+---##API
 
-Run the API locally:
+• Run the API locally
 
 ```bash
 PYTHONPATH=src uvicorn prodinv.api.main:app --reload
 
-Interactive docs available at:
+• Interactive docs available at:
 
 http://127.0.0.1:8000/docs
 
-Available endpoints:
+## Available endpoints:
 
-GET /health
+• GET /health
+• POST /simulate
+• POST /optimize
+• POST /dynamic-policy
 
-POST /simulate
+---
+---##OpenAI_Explanation_Layer
 
-POST /optimize
+This project includes an explanation layer built with the OpenAI Responses API.
+It transforms optimization outputs into structured executive summaries with:
 
-POST /dynamic-policy
+- executive summary
+- key drivers
+- recommended action
+- risk notes
+
+• Run the API locally and test the `/explain` endpoint at:
+
+`http://127.0.0.1:8000/docs`

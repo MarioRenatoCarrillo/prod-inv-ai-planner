@@ -190,15 +190,16 @@ PYTHONPATH=src python -m prodinv.cli optimize --config ./configs/default.yaml
 PYTHONPATH=src python -m prodinv.cli plot --config ./configs/default.yaml
 
 PYTHONPATH=src pytest -q
+```
 
----
----##API
+## API
 
-• Run the API locally
+Run the API locally:
 
 ```bash
 PYTHONPATH=src uvicorn prodinv.api.main:app --reload
 
+```
 • Interactive docs available at:
 
 http://127.0.0.1:8000/docs
@@ -209,18 +210,21 @@ http://127.0.0.1:8000/docs
 • POST /simulate
 • POST /optimize
 • POST /dynamic-policy
+Interactive Docs
+http://127.0.0.1:8000/docs 
 
 ---
----##OpenAI_Explanation_Layer
+
+
+## OpenAI Explanation Layer
 
 This project includes an explanation layer built with the OpenAI Responses API.
 It transforms optimization outputs into structured executive summaries with:
 
-- executive summary
-- key drivers
-- recommended action
-- risk notes
+executive summary
+key drivers
+recommended action
+risk notes
 
-• Run the API locally and test the `/explain` endpoint at:
-
-`http://127.0.0.1:8000/docs`
+Run the API locally and test the /explain endpoint at:
+http://127.0.0.1:8000/docs

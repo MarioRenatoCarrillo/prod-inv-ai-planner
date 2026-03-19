@@ -238,3 +238,48 @@ Example use cases:
 - explain why a fixed or dynamic policy is preferred
 - summarize cost vs service tradeoffs
 - highlight forecast bias and calibration implications
+
+---
+
+## AWS Deployment
+
+The API is containerized with Docker and designed for deployment on AWS using:
+
+- Amazon ECR for image storage
+- Amazon ECS on Fargate for serverless container hosting
+- Application Load Balancer for public HTTP access
+- CloudWatch Logs for observability
+- AWS Secrets Manager for secure OpenAI key injection
+
+Core endpoints:
+- /health
+- /simulate
+- /optimize
+- /dynamic-policy
+- /explain
+
+---
+
+## 🌐 Live API (AWS Deployment)
+
+The API is deployed on AWS ECS Fargate with an Application Load Balancer.
+
+### Endpoints
+
+- GET /health → service status  
+- POST /simulate → run inventory simulation  
+- POST /optimize → find optimal policy  
+- POST /dynamic-policy → ML + OR integration  
+- POST /explain → LLM-powered business explanation  
+
+Example:
+
+http://<your-alb-dns>/docs
+---
+## Architecture Diagram
+
+User → ALB → ECS Fargate → FastAPI → OpenAI
+                     ↓
+                  CloudWatch
+                     ↓
+                Secrets Manager

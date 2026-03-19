@@ -19,8 +19,8 @@ venv/
 
 # Logs / artifacts
 *.log
-reports/figures/*.png
-reports/figures/*.pdf
+!reports/figures/*.png
+!reports/figures/*.pdf
 
 # IDE
 .vscode/

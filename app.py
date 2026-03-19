@@ -3,9 +3,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
-
-if str(SRC) not in sys.path:
-    sys.path.append(str(SRC))
+sys.path.insert(0, str(SRC))
 
 import streamlit as st
 import numpy as np

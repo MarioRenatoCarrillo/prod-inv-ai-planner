@@ -1,10 +1,10 @@
+streamlit
 numpy
 pandas
 matplotlib
 pyyaml
-pytest
 fastapi
 uvicorn
 openai
-streamlit
 pydantic
+pytest

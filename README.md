@@ -278,44 +278,46 @@ http://<your-alb-dns>/docs
 ---
 
 ---
-
-```markdown
 ## 🏗️ Architecture Diagram
 
-```mermaid
-flowchart LR
+```text
+                         ┌───────────────┐
+                         │     User      │
+                         └───────┬───────┘
+                                 │
+                                 ▼
+                      ┌────────────────────┐
+                      │   Application Load │
+                      │     Balancer (ALB) │
+                      └─────────┬──────────┘
+                                │
+                                ▼
+                   ┌──────────────────────────┐
+                   │     ECS Fargate Service  │
+                   │  (Containerized Backend) │
+                   └─────────┬────────────────┘
+                             │
+                             ▼
+                     ┌────────────────┐
+                     │    FastAPI     │
+                     │   REST API     │
+                     └─────────┬──────┘
+                               │
+                 ┌─────────────┴─────────────┐
+                 ▼                           ▼
+       ┌──────────────────┐        ┌────────────────────┐
+       │   OpenAI API     │        │ AWS Secrets Manager│
+       │  (LLM Services)  │        │ (API Keys & Config)│
+       └──────────────────┘        └────────────────────┘
 
-    subgraph Client Layer
-        A[User / Browser]
-    end
+                               │
+                               ▼
+                      ┌──────────────────┐
+                      │   CloudWatch     │
+                      │ Logs & Monitoring│
+                      └──────────────────┘
 
-    subgraph AWS Infrastructure
-        B[Application Load Balancer]
-        C[ECS Fargate Cluster]
-        D[FastAPI Container]
-    end
-
-    subgraph External Services
-        E[OpenAI API]
-    end
-
-    subgraph Observability
-        F[CloudWatch Logs]
-    end
-
-    subgraph Security
-        G[AWS Secrets Manager]
-    end
-
-    A --> B
-    B --> C
-    C --> D
-
-    D --> E
-    D --> G
-    C --> F
-
-```markdown
+                      
 ### Key Features
 
 - Fully serverless container deployment using AWS ECS Fargate

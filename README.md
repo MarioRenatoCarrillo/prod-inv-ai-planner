@@ -276,10 +276,51 @@ Example:
 
 http://<your-alb-dns>/docs
 ---
-## Architecture Diagram
 
-User → ALB → ECS Fargate → FastAPI → OpenAI
-                     ↓
-                  CloudWatch
-                     ↓
-                Secrets Manager
+---
+
+```markdown
+## 🏗️ Architecture Diagram
+
+```mermaid
+flowchart LR
+
+    subgraph Client Layer
+        A[User / Browser]
+    end
+
+    subgraph AWS Infrastructure
+        B[Application Load Balancer]
+        C[ECS Fargate Cluster]
+        D[FastAPI Container]
+    end
+
+    subgraph External Services
+        E[OpenAI API]
+    end
+
+    subgraph Observability
+        F[CloudWatch Logs]
+    end
+
+    subgraph Security
+        G[AWS Secrets Manager]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+
+    D --> E
+    D --> G
+    C --> F
+
+```markdown
+### Key Features
+
+- Fully serverless container deployment using AWS ECS Fargate
+- Scalable API layer powered by FastAPI
+- Secure secret management via AWS Secrets Manager
+- Integrated LLM capabilities using OpenAI API
+- Centralized logging and monitoring with CloudWatch
+```

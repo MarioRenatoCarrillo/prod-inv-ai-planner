@@ -259,6 +259,24 @@ Core endpoints:
 - /explain
 
 ---
+## 📊 Interactive Dashboard (Streamlit)
+
+Explore inventory optimization scenarios in real time:
+
+👉 https://<https://app-inv-ai-planner-kgydplba9g53bvhhyr2cgg.streamlit.app/>
+
+### Features
+
+- Compare fixed vs dynamic policies  
+- Visualize cost breakdown (production, holding, backorder)  
+- Analyze service levels and stockout risk  
+- Explore sensitivity to demand variability  
+
+### Run locally
+
+```bash
+streamlit run app.py
+---
 
 ## 🌐 Live API (AWS Deployment)
 

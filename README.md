@@ -23,6 +23,54 @@ The solution combines:
 - Python-based production-ready architecture  
 
 ---
+# Version 2 -- Agentic Decision Intelligence Platform
+## AI Supply Chain Control Tower Vision
+
+This project is designed as an early-stage **AI Supply Chain Control Tower**: an agentic decision intelligence system that orchestrates multiple specialized agents across forecasting, inventory optimization, procurement, risk simulation, and executive decision support.
+
+Traditional supply chain planning often relies on disconnected spreadsheets, manual reporting, and reactive planning processes. This platform seeks to transform that paradigm by leveraging AI agents to continuously monitor supply and demand signals, identify operational risks, simulate future scenarios, and recommend data-driven actions.
+
+The current architecture includes specialized agents responsible for:
+
+* **Forecast Agent** — predicts future demand using historical patterns and machine learning.
+* **Risk Agent** — evaluates supply chain risk through Monte Carlo simulation and probabilistic analysis.
+* **Inventory Optimization Agent** — determines optimal inventory policies balancing service levels, costs, and operational constraints.
+* **Procurement Agent** — translates inventory recommendations into actionable purchasing decisions.
+* **Executive Agent** — summarizes recommendations, business impact, and decision rationale in executive-friendly language.
+
+
+### The platform now includes an agentic architecture composed of:
+
+* **Forecast Agent**
+* **Risk Agent**
+* **Inventory Optimization Agent**
+* **Procurement Agent**
+* **Executive Agent**
+* **Multi-Agent Decision Flow**
+
+
+## System Architecture
+
+<p align="center">
+  <img src="assets/images/system_architecture.jpg"
+       alt="AI Supply Chain Control Tower Architecture"
+       width="1000">
+</p>
+
+### Long-Term Vision
+
+The long-term vision of this project is not to remove humans from supply chain planning, but rather to augment human decision-making.
+
+As organizations increasingly adopt AI-enabled planning systems, planners and supply chain leaders can shift their focus away from manual data preparation and repetitive analysis toward:
+
+* Strategic decision-making
+* Exception management
+* Risk governance
+* Cross-functional collaboration
+* Scenario evaluation and contingency planning
+
+Ultimately, the goal is to create an intelligent, continuously learning supply chain control tower capable of supporting resilient, agile, and data-driven operations across agriculture, manufacturing, logistics, retail, and other complex supply chain environments.
+
 
 ## Business Problem
 

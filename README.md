@@ -23,6 +23,77 @@ The solution combines:
 - Python-based production-ready architecture  
 
 ---
+# Version 2 -- Agentic Decision Intelligence Platform
+## AI Supply Chain Control Tower Vision
+
+This project is designed as an early-stage **AI Supply Chain Control Tower**: an agentic decision intelligence system that orchestrates multiple specialized agents across forecasting, inventory optimization, procurement, risk simulation, and executive decision support.
+
+Traditional supply chain planning often relies on disconnected spreadsheets, manual reporting, and reactive planning processes. This platform seeks to transform that paradigm by leveraging AI agents to continuously monitor supply and demand signals, identify operational risks, simulate future scenarios, and recommend data-driven actions.
+
+The current architecture includes specialized agents responsible for:
+
+* **Forecast Agent** — predicts future demand using historical patterns and machine learning.
+* **Risk Agent** — evaluates supply chain risk through Monte Carlo simulation and probabilistic analysis.
+* **Inventory Optimization Agent** — determines optimal inventory policies balancing service levels, costs, and operational constraints.
+* **Procurement Agent** — translates inventory recommendations into actionable purchasing decisions.
+* **Executive Agent** — summarizes recommendations, business impact, and decision rationale in executive-friendly language.
+
+
+### The platform now includes an agentic architecture composed of:
+
+* **Forecast Agent**
+* **Risk Agent**
+* **Inventory Optimization Agent**
+* **Procurement Agent**
+* **Executive Agent**
+* **Multi-Agent Decision Flow**
+
+
+## System Architecture
+
+<p align="center">
+  <img src="assets/images/system_architecture.jpg"
+       alt="AI Supply Chain Control Tower Architecture"
+       width="1000">
+</p>
+
+## Example Decision Output
+
+### Scenario
+
+* Commodity: Soybean Meal
+* Location: Mankato Facility
+* Forecast Month: July 2026
+* Current Inventory: 87,000 units
+
+### Executive Recommendation
+
+```text
+For Soybean Meal at Mankato Facility, demand for 2026-07 is forecasted at 103,188 units (range: 92,894 - 113,483).
+
+Under the current inventory policy (87,000 units), simulation results indicate a 100.0% probability of experiencing at least one stockout event, a fill rate of 95.6%, and an expected total cost of $10,778,785.
+
+The optimization engine recommends increasing inventory to 108,348 units. This improves fill rate to 99.4%, reduces expected total cost by $685,452, and lowers expected backorder cost by $740,553.
+
+This recommendation requires procuring 21,348 additional units.
+
+Recommended action: PLACE_ORDER.
+```
+
+### Long-Term Vision
+
+The long-term vision of this project is not to remove humans from supply chain planning, but rather to augment human decision-making.
+
+As organizations increasingly adopt AI-enabled planning systems, planners and supply chain leaders can shift their focus away from manual data preparation and repetitive analysis toward:
+
+* Strategic decision-making
+* Exception management
+* Risk governance
+* Cross-functional collaboration
+* Scenario evaluation and contingency planning
+
+Ultimately, the goal is to create an intelligent, continuously learning supply chain control tower capable of supporting resilient, agile, and data-driven operations across agriculture, manufacturing, logistics, retail, and other complex supply chain environments.
+
 
 ## Business Problem
 

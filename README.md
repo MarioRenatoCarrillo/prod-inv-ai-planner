@@ -57,6 +57,29 @@ The current architecture includes specialized agents responsible for:
        width="1000">
 </p>
 
+## Example Decision Output
+
+### Scenario
+
+* Commodity: Soybean Meal
+* Location: Mankato Facility
+* Forecast Month: July 2026
+* Current Inventory: 87,000 units
+
+### Executive Recommendation
+
+```text
+For Soybean Meal at Mankato Facility, demand for 2026-07 is forecasted at 103,188 units (range: 92,894 - 113,483).
+
+Under the current inventory policy (87,000 units), simulation results indicate a 100.0% probability of experiencing at least one stockout event, a fill rate of 95.6%, and an expected total cost of $10,778,785.
+
+The optimization engine recommends increasing inventory to 108,348 units. This improves fill rate to 99.4%, reduces expected total cost by $685,452, and lowers expected backorder cost by $740,553.
+
+This recommendation requires procuring 21,348 additional units.
+
+Recommended action: PLACE_ORDER.
+```
+
 ### Long-Term Vision
 
 The long-term vision of this project is not to remove humans from supply chain planning, but rather to augment human decision-making.
